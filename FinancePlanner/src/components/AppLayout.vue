@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { logOut, user } from '../store/auth'
 import { firebaseReady } from '../firebase'
 
+const router = useRouter()
 const menuOpen = ref(false)
 
 const links = [
@@ -17,6 +18,7 @@ const links = [
 async function handleLogout() {
   menuOpen.value = false
   await logOut()
+  router.push({ name: 'login' })
 }
 </script>
 
@@ -59,7 +61,7 @@ async function handleLogout() {
 
         <div class="hidden items-center gap-3 md:flex">
           <button
-            class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+            class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
             @click="handleLogout"
           >
             Logout
@@ -122,7 +124,7 @@ async function handleLogout() {
               {{ link.label }}
             </RouterLink>
             <button
-              class="mt-2 flex items-center gap-2 rounded-lg px-4 py-3 text-left text-base font-medium text-rose-600 transition hover:bg-rose-50"
+              class="mt-2 flex items-center gap-2 rounded-lg px-4 py-3 text-left text-base font-medium text-rose-600 transition hover:bg-rose-50 cursor-pointer"
               @click="handleLogout"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
